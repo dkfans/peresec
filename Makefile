@@ -1,30 +1,40 @@
-# Project: peresec
-# Makefile created by Dev-C++, modified by hand
+#******************************************************************************
+#  PE/DLL Rebuilder of Export Section
+#******************************************************************************
+ifeq ($(OS),Windows_NT)
+RES  = peresec_private.res
+EXEEXT = .exe
+else
+RES  = 
+EXEEXT =
+endif
 
 CPP  = g++
 CC   = gcc
 WINDRES = windres
-RES  = peresec_private.res
-OBJ  = peresec.o $(RES)
-LINKOBJ  = $(OBJ)
+DLLTOOL = dlltool
+RM = rm -f
+
+BIN  = peresec$(EXEEXT)
 LIBS =
+OBJS = \
+peresec.o \
+$(RES)
+
 INCS =
 CXXINCS =
-BIN  = peresec
 CXXFLAGS = $(CXXINCS)  
 CFLAGS = $(INCS)  
-RM = rm -f
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before peresec all-after
-
+all: all-before $(BIN) all-after
 
 clean: clean-custom
-	${RM} $(OBJ) $(BIN) $(BIN).exe
+	$(RM) $(OBJS) $(BIN)
 
-$(BIN): $(OBJ)
-	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+$(BIN): $(OBJS)
+	$(CC) $(OBJS) -o $(BIN) $(LIBS)
 
 peresec.o: peresec.c
 	$(CC) -c peresec.c -o peresec.o $(CFLAGS)
