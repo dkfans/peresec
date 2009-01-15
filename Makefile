@@ -4,7 +4,7 @@
 CPP  = g++
 CC   = gcc
 WINDRES = windres
-RES  = 
+RES  = peresec_private.res
 OBJ  = peresec.o $(RES)
 LINKOBJ  = $(OBJ)
 LIBS =
@@ -28,3 +28,6 @@ $(BIN): $(OBJ)
 
 peresec.o: peresec.c
 	$(CC) -c peresec.c -o peresec.o $(CFLAGS)
+
+peresec_private.res: peresec_private.rc 
+	$(WINDRES) -i peresec_private.rc --input-format=rc -o peresec_private.res -O coff 
