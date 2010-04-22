@@ -2,7 +2,7 @@
 #  PE/DLL Rebuilder of Export Section
 #******************************************************************************
 ifeq ($(OS),Windows_NT)
-RES  = peresec_private.res
+RES  = obj/peresec_stdres.res
 EXEEXT = .exe
 else
 RES  = 
@@ -14,30 +14,35 @@ CC   = gcc
 WINDRES = windres
 DLLTOOL = dlltool
 RM = rm -f
+MKDIR = mkdir -p
 
-BIN  = peresec$(EXEEXT)
+BIN  = bin/peresec$(EXEEXT)
 LIBS =
 OBJS = \
-peresec.o \
+obj/peresec.o \
 $(RES)
 
 INCS =
 CXXINCS =
-CXXFLAGS = $(CXXINCS)  
-CFLAGS = $(INCS)  
+CXXFLAGS = $(CXXINCS) -c -fmessage-length=0
+CFLAGS = $(INCS) -c -fmessage-length=0
+LDFLAGS =
 
 .PHONY: all all-before all-after clean clean-custom
 
 all: all-before $(BIN) all-after
 
+all-before:
+	$(MKDIR) obj bin
+
 clean: clean-custom
 	$(RM) $(OBJS) $(BIN)
 
 $(BIN): $(OBJS)
-	$(CC) $(OBJS) -o $(BIN) $(LIBS)
+	$(CC) $(LDFLAGS) -o "$@" $(OBJS) $(LIBS)
 
-peresec.o: peresec.c
-	$(CC) -c peresec.c -o peresec.o $(CFLAGS)
+obj/%.o: src/%.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
 
-peresec_private.res: peresec_private.rc 
-	$(WINDRES) -i peresec_private.rc --input-format=rc -o peresec_private.res -O coff 
+obj/%.res: res/%.rc
+	$(WINDRES) -i "$<" --input-format=rc -o "$@" -O coff 
