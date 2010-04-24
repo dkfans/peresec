@@ -3,11 +3,11 @@
 #define PERESEC_PRIVATE_H
 
 /* VERSION DEFINITIONS */
-#define VER_STRING	"1.0.6.5"
+#define VER_STRING	"1.0.8.17"
 #define VER_MAJOR	1
 #define VER_MINOR	0
-#define VER_RELEASE	6
-#define VER_BUILD	5
+#define VER_RELEASE	8
+#define VER_BUILD	17
 #define COMPANY_NAME	"Open-Source"
 #define FILE_VERSION	""
 #define FILE_DESCRIPTION	"PE/DLL Rebuilder of Export Section"
