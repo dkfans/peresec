@@ -20,11 +20,13 @@
 #define PERESEC_VERSION_H
 
 /* Version definitions */
-#define VER_MAJOR         1
-#define VER_MINOR         0
-#define VER_RELEASE       9
-#define VER_BUILD         43
-#define VER_STRING        "1.0.9.43"
+#include "../obj/ver_defs.h"
+//#define VER_MAJOR         1
+//#define VER_MINOR         2
+//#define VER_RELEASE       3
+//#define VER_BUILD         4
+//#define VER_STRING        "1.2.3.4"
+
 /* Program name, copyrights and file names */
 #define PROGRAM_NAME      "PEReSec"
 #define PROGRAM_FULL_NAME "PE/DLL Rebuilder of Export Section"
