@@ -125,7 +125,8 @@ pkg-before:
 
 pkg/%.tar.gz: pkg-before
 	$(ECHO) 'Creating package: $<'
-	$(TAR) zcf "$@" pkg
+	cd $(@D); \
+	$(TAR) --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
 	$(ECHO) 'Finished creating: $<'
 	$(ECHO) ' '
 
@@ -134,7 +135,7 @@ tar.gz: pkg/peresec-$(subst .,_,$(VER_STRING))-$(PACKAGE_SUFFIX)-$(PKGOS).tar.gz
 pkg/%.zip: pkg-before
 	$(ECHO) 'Creating package: $<'
 	cd $(@D); \
-	$(ZIP) -9 -r "$(@F)" .
+	$(ZIP) -x*.tar.gz -x*.zip -9 -r "$(@F)" .
 	$(ECHO) 'Finished creating: $<'
 	$(ECHO) ' '
 
