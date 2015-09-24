@@ -83,28 +83,28 @@ clean: clean-custom
 	-$(ECHO) ' '
 
 $(BIN): $(OBJS) $(LIBS)
-	$(ECHO) 'Building target: $@'
+	-$(ECHO) 'Building target: $@'
 	$(CPP) $(LINKOBJ) -o "$@" $(LDFLAGS)
-	$(ECHO) 'Finished building target: $@'
-	$(ECHO) ' '
+	-$(ECHO) 'Finished building target: $@'
+	-$(ECHO) ' '
 
 obj/%.o: src/%.cpp $(GENSRC)
-	$(ECHO) 'Building file: $<'
+	-$(ECHO) 'Building file: $<'
 	$(CPP) $(CXXFLAGS) -o"$@" "$<"
-	$(ECHO) 'Finished building: $<'
-	$(ECHO) ' '
+	-$(ECHO) 'Finished building: $<'
+	-$(ECHO) ' '
 
 obj/%.o: src/%.c $(GENSRC)
-	$(ECHO) 'Building file: $<'
+	-$(ECHO) 'Building file: $<'
 	$(CC) $(CFLAGS) -o"$@" "$<"
-	$(ECHO) 'Finished building: $<'
-	$(ECHO) ' '
+	-$(ECHO) 'Finished building: $<'
+	-$(ECHO) ' '
 
 obj/%.res: res/%.rc $(GENSRC)
-	$(ECHO) 'Building resource: $<'
+	-$(ECHO) 'Building resource: $<'
 	$(WINDRES) -i "$<" --input-format=rc -o "$@" -O coff 
-	$(ECHO) 'Finished building: $<'
-	$(ECHO) ' '
+	-$(ECHO) 'Finished building: $<'
+	-$(ECHO) ' '
 
 obj/ver_defs.h: version.mk Makefile
 	$(ECHO) \#define VER_MAJOR   $(VER_MAJOR) > "$(@D)/tmp"
@@ -124,20 +124,20 @@ pkg-before:
 	$(CP) docs/*_readme.txt pkg/
 
 pkg/%.tar.gz: pkg-before
-	$(ECHO) 'Creating package: $<'
+	-$(ECHO) 'Creating package: $<'
 	cd $(@D); \
-	$(TAR) --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
-	$(ECHO) 'Finished creating: $<'
-	$(ECHO) ' '
+	$(TAR) --owner=0 --group=0 --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
+	-$(ECHO) 'Finished creating: $<'
+	-$(ECHO) ' '
 
 tar.gz: pkg/peresec-$(subst .,_,$(VER_STRING))-$(PACKAGE_SUFFIX)-$(PKGOS).tar.gz
 
 pkg/%.zip: pkg-before
-	$(ECHO) 'Creating package: $<'
+	-$(ECHO) 'Creating package: $<'
 	cd $(@D); \
 	$(ZIP) -x*.tar.gz -x*.zip -9 -r "$(@F)" .
-	$(ECHO) 'Finished creating: $<'
-	$(ECHO) ' '
+	-$(ECHO) 'Finished creating: $<'
+	-$(ECHO) ' '
 
 zip: pkg/peresec-$(subst .,_,$(VER_STRING))-$(PACKAGE_SUFFIX)-$(PKGOS).zip
 

@@ -30,6 +30,7 @@
 /* Program name, copyrights and file names */
 #define PROGRAM_NAME      "PEReSec"
 #define PROGRAM_FULL_NAME "PE/DLL Rebuilder of Export Section"
+#define PROGRAM_AUTHORS   "Tomasz Lis"
 #define COMPANY_NAME      "Community based"
 #define INTERNAL_NAME     "peresec"
 #define LEGAL_COPYRIGHT   "GNU General Public License"
