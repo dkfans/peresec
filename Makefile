@@ -126,7 +126,7 @@ pkg-before:
 pkg/%.tar.gz: pkg-before
 	-$(ECHO) 'Creating package: $<'
 	cd $(@D); \
-	$(TAR) --owner=0 --group=0 --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
+	$(TAR) --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
 	-$(ECHO) 'Finished creating: $<'
 	-$(ECHO) ' '
 
