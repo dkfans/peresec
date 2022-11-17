@@ -1162,6 +1162,8 @@ short add_pe_section_header_to_buf(unsigned char **buf, long *filesize, struct s
     unsigned long first_section_data_raddr;
     long insert_idx;
     long idx;
+    int len;
+
     // Get section headers position
     section_headers_raw_pos = pe->rvas_and_sizes_raddr + pe->rvas_and_sizes_num*PE_SIZEOF_DATADIR_ENTRY;
     // Initial value of the first section offset
