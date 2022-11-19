@@ -23,7 +23,7 @@ ifneq (,$(findstring Windows,$(OS)))
   PKGFMT = zip
   PKGOS = win
 else
-  RES  = 
+  RES  =
   EXEEXT =
   PKGFMT = tar.gz
   PKGOS = lin
@@ -49,16 +49,16 @@ $(RES)
 
 GENSRC   = obj/ver_defs.h
 LINKOBJ  = $(OBJS)
-LINKLIB = 
-INCS = 
-CXXINCS = 
+LINKLIB =
+INCS =
+CXXINCS =
 # flags to generate dependency files
-DEPFLAGS = -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" 
+DEPFLAGS = -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"
 # code optimization flags
 OPTFLAGS = -O3
 DBGFLAGS =
 # linker flags
-LINKFLAGS = 
+LINKFLAGS =
 # compiler warning generation flags
 WARNFLAGS = -Wall -Wno-sign-compare -Wno-unused-parameter
 # disabled warnings: -Wextra -Wtype-limits
@@ -102,7 +102,7 @@ obj/%.o: src/%.c $(GENSRC)
 
 obj/%.res: res/%.rc $(GENSRC)
 	-$(ECHO) 'Building resource: $<'
-	$(WINDRES) -i "$<" --input-format=rc -o "$@" -O coff 
+	$(WINDRES) -i "$<" --input-format=rc -o "$@" -O coff
 	-$(ECHO) 'Finished building: $<'
 	-$(ECHO) ' '
 
@@ -126,7 +126,7 @@ pkg-before:
 pkg/%.tar.gz: pkg-before
 	-$(ECHO) 'Creating package: $<'
 	cd $(@D); \
-	$(TAR) --owner=0 --group=0 --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
+	$(TAR) --exclude=*.tar.gz --exclude=*.zip -zcf "$(@F)" .
 	-$(ECHO) 'Finished creating: $<'
 	-$(ECHO) ' '
 

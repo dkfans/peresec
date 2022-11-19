@@ -1162,6 +1162,8 @@ short add_pe_section_header_to_buf(unsigned char **buf, long *filesize, struct s
     unsigned long first_section_data_raddr;
     long insert_idx;
     long idx;
+    int len;
+
     // Get section headers position
     section_headers_raw_pos = pe->rvas_and_sizes_raddr + pe->rvas_and_sizes_num*PE_SIZEOF_DATADIR_ENTRY;
     // Initial value of the first section offset
@@ -1206,7 +1208,11 @@ short add_pe_section_header_to_buf(unsigned char **buf, long *filesize, struct s
     // Clear the new section
     memset(data, '\0', PE_SIZEOF_SECTHDR_ENTRY);
     // Write section name
-    strncpy((char *)data, new_sec->name, MAX_SECTION_NAME_LEN);
+    len = strlen(new_sec->name);
+    if (len >= MAX_SECTION_NAME_LEN) {
+        len = MAX_SECTION_NAME_LEN;
+    }
+    memcpy(data, new_sec->name, len);
     data += MAX_SECTION_NAME_LEN;
     // Write addresses and sizes
     write_int32_le_buf(data,new_sec->vsize); data += 4; // virtual size
